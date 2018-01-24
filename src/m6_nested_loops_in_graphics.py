@@ -3,7 +3,7 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
+         their colleagues and Sydney Larson.
 """  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
@@ -79,6 +79,27 @@ def draw_L(window, circle, r, c):
       :type c: int
     and m and n are small, positive integers.
     """
+    x = circle.center.x
+    y = circle.center.y
+    for j in range(r):
+        for k in range(3):
+            newcircle = rg.Circle(rg.Point(x, y), circle.radius)
+            newcircle.fill_color = circle.fill_color
+            newcircle.attach_to(window)
+            window.render(.1)
+            x += circle.radius * 2
+        x = circle.center.x
+        y += circle.radius * 2
+
+    for j in range(3):
+        for k in range(c + 3):
+            newcircle = rg.Circle(rg.Point(x, y), circle.radius)
+            newcircle.fill_color = circle.fill_color
+            newcircle.attach_to(window)
+            window.render(.1)
+            x += circle.radius * 2
+        x = circle.center.x
+        y += circle.radius * 2
     # ------------------------------------------------------------------
     # TODO: 2. Implement and test this function.
     #     The testing code is already written for you (above).
@@ -120,6 +141,25 @@ def draw_wall_on_right(rectangle, n, window):
       :type window: rg.RoseWindow
     and n is a small, positive integer.
     """
+    cor1 = rectangle.corner_1
+    cor2 = rectangle.corner_2
+    x1 = cor1.x
+    y1 = cor1.y
+    x2 = cor2.x
+    y2 = cor2.y
+    for j in range(n):
+        for k in range(j + 1):
+            cor1 = rg.Point(x1, y1)
+            cor2 = rg.Point(x2, y2)
+            nrect = rg.Rectangle(cor1, cor2)
+            nrect.attach_to(window)
+            window.render(.1)
+            x1 -= rectangle.get_width()
+            x2 -= rectangle.get_width()
+        x1 = rectangle.corner_1.x
+        x2 = rectangle.corner_2.x
+        y1 += rectangle.get_height()
+        y2 += rectangle.get_height()
     # ------------------------------------------------------------------
     # TODO: 3. Implement and test this function.
     #     The testing code is already written for you (above).
